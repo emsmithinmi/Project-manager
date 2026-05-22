@@ -55,8 +55,14 @@ export default function Projects() {
   ]
 
   const handleCreate = async (data) => {
-    const { error: err } = await createProject(data)
+    const slug = data.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      + '-' + Date.now().toString(36)
+    const { error: err } = await createProject({ ...data, slug })
     if (!err) setShowNewForm(false)
+    return { error: err }
   }
 
   const handleUpdate = async (id, updates) => {

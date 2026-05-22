@@ -41,7 +41,7 @@ export default function ProjectForm({
     if (!form.title.trim()) { setError('Title is required.'); return }
     setSaving(true)
     setError(null)
-    await onSubmit({
+    const result = await onSubmit({
       ...form,
       title:       form.title.trim(),
       start_date:  form.start_date  || null,
@@ -50,6 +50,7 @@ export default function ProjectForm({
       description: form.description || null,
       waiting_for: form.waiting_for || null,
     })
+    if (result?.error) setError(result.error.message)
     setSaving(false)
   }
 
