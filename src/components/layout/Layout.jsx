@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Dashboard', icon: '🏠' },
@@ -11,6 +12,8 @@ const NAV_ITEMS = [
 ]
 
 export default function Layout() {
+  const { user, signOut } = useAuth()
+
   return (
     <div className="flex h-screen overflow-hidden" style={{ backgroundColor: '#1e1e2e' }}>
       {/* Sidebar */}
@@ -36,9 +39,7 @@ export default function Layout() {
               to={to}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive
-                    ? 'font-medium'
-                    : 'hover:opacity-80'
+                  isActive ? 'font-medium' : 'hover:opacity-80'
                 }`
               }
               style={({ isActive }) => ({
@@ -52,9 +53,27 @@ export default function Layout() {
           ))}
         </nav>
 
-        {/* Footer */}
-        <div className="px-4 py-3 border-t text-xs" style={{ borderColor: '#313244', color: '#6c7086' }}>
-          Personal GTD
+        {/* User / Sign out */}
+        <div
+          className="px-4 py-3 border-t space-y-2"
+          style={{ borderColor: '#313244' }}
+        >
+          {user && (
+            <p
+              className="text-xs truncate"
+              style={{ color: '#6c7086' }}
+              title={user.email}
+            >
+              {user.email}
+            </p>
+          )}
+          <button
+            onClick={signOut}
+            className="w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors hover:opacity-80"
+            style={{ color: '#6c7086', backgroundColor: '#313244' }}
+          >
+            Sign out
+          </button>
         </div>
       </aside>
 
