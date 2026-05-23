@@ -1,0 +1,51 @@
+import { StatusPill, PriorityBadge, EnergyBadge, DurationDisplay } from '../ui'
+
+export default function TaskRow({ task, onClick }) {
+  const isDone    = task.status === 'done'
+  const isWaiting = task.status === 'waiting'
+  const today     = new Date().toISOString().split('T')[0]
+  const overdue   = task.due_date && task.due_date < today && !isDone
+
+  return (
+    <div
+      onClick={onClick}
+      className="flex items-center gap-3 px-4 py-3 border-b last:border-b-0 cursor-pointer transition-colors hover:opacity-90"
+      style={{ borderColor: '#313244' }}
+    >
+      {/* Status dot */}
+      <StatusPill status={task.status} type="task" />
+
+      {/* Title + project */}
+      <div className="flex-1 min-w-0">
+        <p
+          className="text-sm truncate"
+          style={{
+            color: isDone ? '#6c7086' : '#cdd6f4',
+            textDecoration: isDone ? 'line-through' : 'none',
+          }}
+        >
+          {task.is_highlight && <span className="mr-1">⭐</span>}
+          {task.title}
+        </p>
+        {task.projects?.title && (
+          <p className="text-xs truncate mt-0.5" style={{ color: '#6c7086' }}>
+            📁 {task.projects.title}
+          </p>
+        )}
+      </div>
+
+      {/* Meta */}
+      <div className="flex items-center gap-2 shrink-0">
+        {task.due_date && (
+          <span className="text-xs" style={{ color: overdue ? '#DB4437' : '#6c7086' }}>
+            {overdue ? '⚠ ' : ''}
+            {new Date(task.due_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          </span>
+        )}
+        {task.duration && <DurationDisplay duration={task.duration} />}
+        {task.energy_level && <EnergyBadge energyLevel={task.energy_level} />}
+        <PriorityBadge priority={task.priority} />
+      </div>
+    </div>
+  )
+}
