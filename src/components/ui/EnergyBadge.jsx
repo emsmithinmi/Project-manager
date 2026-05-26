@@ -5,6 +5,7 @@ const ENERGY_STYLES = {
   deep_focus: { bg: '#1e2d3d', text: '#89b4fa', icon: '🧠' },
   admin:      { bg: '#1e2d1e', text: '#a8d5a2', icon: '💻' },
   low_energy: { bg: '#2d2d1e', text: '#e9c46a', icon: '🌿' },
+  errand:     { bg: '#2a1f3d', text: '#cba6f7', icon: '🛒' },
 }
 
 export default function EnergyBadge({ energyLevel, className = '' }) {

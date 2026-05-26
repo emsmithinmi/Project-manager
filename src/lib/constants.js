@@ -40,6 +40,7 @@ export const ENERGY_LEVELS = [
   { value: 'deep_focus',  label: 'Deep Focus',  description: 'Mentally demanding computer work' },
   { value: 'admin',       label: 'Admin',       description: 'Light computer tasks' },
   { value: 'low_energy',  label: 'Low Energy',  description: 'Can do when tired or distracted' },
+  { value: 'errand',      label: 'Errand',      description: 'Out-of-office or on-the-go task' },
 ]
 
 // ─── Task Action Button Labels ────────────────────────────────────────────────
