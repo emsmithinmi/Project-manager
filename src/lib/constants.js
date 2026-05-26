@@ -15,7 +15,7 @@ export const PROJECT_STATUSES = {
   planning:    { label: 'Planning',    bg: '#ffffff', text: '#000000', border: '#BBBBBB' },
   in_progress: { label: 'In Progress', bg: '#1967D2', text: '#ffffff', border: '#1256B0' },
   waiting:     { label: 'Waiting',     bg: '#DB4437', text: '#ffffff', border: '#B03228' },
-  stalled:     { label: 'Stalled',     bg: '#673ab7', text: '#ffffff', border: '#4a2a8a' },
+  stalled:     { label: 'Stalled',     bg: '#FB9039', text: '#000000', border: '#c97030' },
   completed:   { label: 'Completed',   bg: '#000000', text: '#ffffff', border: '#333333' },
 }
 

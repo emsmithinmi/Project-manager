@@ -1,66 +1,92 @@
+import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Dashboard', icon: '🏠' },
-  { to: '/daily',     label: 'Daily',     icon: '📅' },
-  { to: '/tasks',     label: 'Tasks',     icon: '⚡' },
-  { to: '/projects',  label: 'Projects',  icon: '🗂' },
-  { to: '/people',    label: 'People',    icon: '👥' },
-  { to: '/habits',    label: 'Habits',    icon: '🎯' },
-  { to: '/reviews',   label: 'Reviews',   icon: '🔍' },
+  { to: '/daily',    label: 'Daily',    icon: '📅' },
+  { to: '/tasks',    label: 'Tasks',    icon: '⚡' },
+  { to: '/projects', label: 'Projects', icon: '🗂' },
+  { to: '/people',   label: 'People',   icon: '👥' },
+  { to: '/habits',   label: 'Habits',   icon: '🎯' },
+  { to: '/reviews',  label: 'Reviews',  icon: '🔍' },
 ]
 
 export default function Layout() {
   const { user, signOut } = useAuth()
+  const [collapsed, setCollapsed] = useState(false)
 
   return (
     <div className="flex h-screen overflow-hidden" style={{ backgroundColor: '#1e1e2e' }}>
       {/* Sidebar */}
       <aside
-        className="flex flex-col w-56 shrink-0 border-r"
-        style={{ backgroundColor: '#181825', borderColor: '#313244' }}
+        className="flex flex-col shrink-0 border-r transition-all duration-200"
+        style={{
+          backgroundColor: '#181825',
+          borderColor: '#313244',
+          width: collapsed ? '56px' : '224px',
+          minWidth: collapsed ? '56px' : '224px',
+        }}
       >
-        {/* Logo */}
-        <div className="px-6 py-5 border-b" style={{ borderColor: '#313244' }}>
-          <h1 className="text-lg font-semibold" style={{ color: '#cdd6f4' }}>
-            GTD
-          </h1>
-          <p className="text-xs mt-0.5" style={{ color: '#6c7086' }}>
-            Getting Things Done
-          </p>
+        {/* Logo + collapse toggle */}
+        <div
+          className="flex items-center border-b shrink-0"
+          style={{
+            borderColor: '#313244',
+            padding: collapsed ? '16px 8px' : '16px 24px',
+            justifyContent: collapsed ? 'center' : 'space-between',
+          }}
+        >
+          {!collapsed && (
+            <div>
+              <h1 className="text-lg font-semibold" style={{ color: '#cdd6f4' }}>GTD</h1>
+              <p className="text-xs mt-0.5" style={{ color: '#6c7086' }}>Getting Things Done</p>
+            </div>
+          )}
+          <button
+            onClick={() => setCollapsed(c => !c)}
+            className="flex items-center justify-center rounded-lg text-xs transition-colors hover:opacity-80"
+            style={{ color: '#6c7086', backgroundColor: '#313244', width: '28px', height: '28px', flexShrink: 0 }}
+            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {collapsed ? '▶' : '◀'}
+          </button>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav
+          className="flex-1 py-4 space-y-1 overflow-y-auto"
+          style={{ padding: collapsed ? '16px 8px' : '16px 12px' }}
+        >
           {NAV_ITEMS.map(({ to, label, icon }) => (
             <NavLink
               key={to}
               to={to}
+              title={collapsed ? label : undefined}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive ? 'font-medium' : 'hover:opacity-80'
-                }`
+                `flex items-center rounded-lg text-sm transition-colors ${
+                  collapsed ? 'justify-center' : 'gap-3'
+                } ${isActive ? 'font-medium' : 'hover:opacity-80'}`
               }
               style={({ isActive }) => ({
                 backgroundColor: isActive ? '#313244' : 'transparent',
                 color: isActive ? '#cdd6f4' : '#6c7086',
+                padding: collapsed ? '8px' : '8px 12px',
               })}
             >
               <span>{icon}</span>
-              <span>{label}</span>
+              {!collapsed && <span>{label}</span>}
             </NavLink>
           ))}
         </nav>
 
         {/* User / Sign out */}
         <div
-          className="px-4 py-3 border-t space-y-2"
-          style={{ borderColor: '#313244' }}
+          className="border-t"
+          style={{ borderColor: '#313244', padding: collapsed ? '12px 8px' : '12px 16px' }}
         >
-          {user && (
+          {user && !collapsed && (
             <p
-              className="text-xs truncate"
+              className="text-xs truncate mb-2"
               style={{ color: '#6c7086' }}
               title={user.email}
             >
@@ -69,10 +95,16 @@ export default function Layout() {
           )}
           <button
             onClick={signOut}
-            className="w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors hover:opacity-80"
-            style={{ color: '#6c7086', backgroundColor: '#313244' }}
+            className="w-full rounded-md text-xs transition-colors hover:opacity-80"
+            style={{
+              color: '#6c7086',
+              backgroundColor: '#313244',
+              padding: collapsed ? '6px' : '6px 8px',
+              textAlign: collapsed ? 'center' : 'left',
+            }}
+            title={collapsed ? 'Sign out' : undefined}
           >
-            Sign out
+            {collapsed ? '→' : 'Sign out'}
           </button>
         </div>
       </aside>

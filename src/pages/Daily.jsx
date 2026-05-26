@@ -35,10 +35,11 @@ function DateHeader() {
   const now = new Date()
   return (
     <div className="text-center py-4">
-      <p className="text-sm font-semibold tracking-widest uppercase" style={{ color: '#6c7086' }}>
+      <p className="text-4xl font-bold tracking-widest uppercase" style={{ color: '#FB9039' }}>
         {DAYS[now.getDay()]}
       </p>
-      <h1 className="text-4xl font-bold mt-0.5" style={{ color: '#cdd6f4' }}>
+      <div className="my-3 h-px mx-auto w-20" style={{ backgroundColor: '#313244' }} />
+      <h1 className="text-5xl font-bold" style={{ color: '#cdd6f4' }}>
         {MONTHS[now.getMonth()]} {now.getDate()}, {now.getFullYear()}
       </h1>
     </div>
@@ -93,7 +94,7 @@ export default function Daily() {
   return (
     <>
       {/* ── Scrollable page content ── */}
-      <div className="max-w-2xl mx-auto px-6 py-4 space-y-6 pb-24">
+      <div className="px-6 py-4 space-y-6 pb-24">
 
         {/* Date */}
         <DateHeader />

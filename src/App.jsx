@@ -3,12 +3,15 @@ import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/layout/ProtectedRoute'
 import Layout from './components/layout/Layout'
 import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
 import Daily from './pages/Daily'
 import Tasks from './pages/Tasks'
+import TaskPage from './pages/TaskPage'
 import Projects from './pages/Projects'
+import ProjectPage from './pages/ProjectPage'
 import People from './pages/People'
+import PersonPage from './pages/PersonPage'
 import Habits from './pages/Habits'
+import HabitPage from './pages/HabitPage'
 import Reviews from './pages/Reviews'
 
 export default function App() {
@@ -16,26 +19,19 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public */}
           <Route path="/login" element={<Login />} />
-
-          {/* Protected — all app routes live inside Layout */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            }
-          >
+          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route index element={<Navigate to="/daily" replace />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="daily"     element={<Daily />} />
-            <Route path="tasks"     element={<Tasks />} />
-            <Route path="projects"  element={<Projects />} />
-            <Route path="people"    element={<People />} />
-            <Route path="habits"    element={<Habits />} />
-            <Route path="reviews"   element={<Reviews />} />
+            <Route path="daily"         element={<Daily />} />
+            <Route path="tasks"         element={<Tasks />} />
+            <Route path="tasks/:id"     element={<TaskPage />} />
+            <Route path="projects"      element={<Projects />} />
+            <Route path="projects/:id"  element={<ProjectPage />} />
+            <Route path="people"        element={<People />} />
+            <Route path="people/:id"    element={<PersonPage />} />
+            <Route path="habits"        element={<Habits />} />
+            <Route path="habits/:habit" element={<HabitPage />} />
+            <Route path="reviews"       element={<Reviews />} />
             <Route path="reviews/:type" element={<Reviews />} />
           </Route>
         </Routes>
