@@ -46,6 +46,7 @@ export default function ProjectPage() {
   const [showHighlight, setShowHighlight] = useState(false)
   const [showArchive,   setShowArchive]   = useState(false)
   const [showDiscard,   setShowDiscard]   = useState(false)
+  const [scrapping,     setScrapping]     = useState(false)
 
   const { tasks } = useTasks({ project_id: id })
   const taskCount = tasks.length
@@ -140,8 +141,6 @@ export default function ProjectPage() {
     await archiveProject(project.id)
     navigate('/projects')
   }
-
-  const [scrapping, setScrapping] = useState(false)
 
   const handleDiscard = async () => {
     setScrapping(true)
