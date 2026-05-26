@@ -27,6 +27,9 @@ _Nothing pending — all changes committed and deployed._
 - `PersonRow` subtitle now shows relationship, occupation, or company instead of last-contact date
 - `updatePerson` in `people.js` strips legacy field names (`phone`, `email`, `last_contact_at`) to prevent DB errors
 
+### Fixed
+- `people_contact_type_check` DB constraint (only allowed `Personal/Work/Services`) dropped — contact type field now accepts any value
+
 ---
 
 ## 2026-05-26
