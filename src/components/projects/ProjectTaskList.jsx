@@ -6,6 +6,7 @@ import TaskDetail from '../tasks/TaskDetail'
 
 const STATUS_TABS = [
   { key: 'active',      label: 'Active'       },
+  { key: 'inbox',       label: 'Inbox'        },
   { key: 'next_action', label: 'Next Actions' },
   { key: 'queued',      label: 'Queued'       },
   { key: 'waiting',     label: 'Waiting'      },
@@ -51,6 +52,7 @@ export default function ProjectTaskList({ projectId, onTaskCountChange }) {
   // Count by status for tabs
   const counts = {
     active:      tasks.filter(t => ACTIVE.includes(t.status)).length,
+    inbox:       tasks.filter(t => t.status === 'inbox').length,
     next_action: tasks.filter(t => t.status === 'next_action').length,
     queued:      tasks.filter(t => t.status === 'queued').length,
     waiting:     tasks.filter(t => t.status === 'waiting').length,

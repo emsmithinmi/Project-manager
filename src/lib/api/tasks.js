@@ -40,10 +40,12 @@ export async function getTaskComments(taskId) {
 
 // ─── Create ───────────────────────────────────────────────────────────────────
 
-export async function createTask({ title }) {
+export async function createTask({ title, project_id = null, status = 'inbox' }) {
+  const insert = { title, status }
+  if (project_id) insert.project_id = project_id
   const { data, error } = await supabase
     .from('tasks')
-    .insert({ title, status: 'inbox' })
+    .insert(insert)
     .select()
     .single()
   if (error) throw error
