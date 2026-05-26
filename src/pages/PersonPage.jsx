@@ -341,7 +341,7 @@ export default function PersonPage() {
         {/* Actions */}
         {(person.status === 'inbox' || person.status === 'stale' || person.is_stale) && (
           <section className="pb-6">
-            <h2 className="text-base font-semibold mb-3" style={{ color: '#cdd6f4' }}>Actions</h2>
+            <h2 className="text-base font-semibold mb-3" style={{ color: '#cdd6f4' }}>What's Next?</h2>
             <div className="flex flex-wrap gap-2">
               {(person.status === 'inbox' || person.status === 'stale' || person.is_stale) && (
                 <Button variant="success" size="sm" onClick={handleActivate}>
